@@ -25,8 +25,8 @@ class IntroWindow:
             relief="flat",
             bg="#FFB3C1"
         )
-        button.bind("<Enter>", lambda e: button.config(bg="#FF9AAB"))  # Change color on hover
-        button.bind("<Leave>", lambda e: button.config(bg="#FFB3C1"))  # Revert color on leave
+        button.bind("<Enter>", lambda e: button.config(bg="#FF9AAB"))
+        button.bind("<Leave>", lambda e: button.config(bg="#FFB3C1")) 
 
     def intro(self):
         paragraph_text = (
@@ -79,13 +79,13 @@ class TimerWindow:
         self.current_label = Label(root, text="Ringtone: ", bg="#56a1cc", font=("Helvetica", 12))
         self.current_label.place(relx=0.2, rely=0.6, anchor="e")
 
-        self.songs = self.load_songs()  # Load songs from the text file
+        self.songs = self.load_songs() 
         self.current_song = None
 
-        # Populate combobox with song names only
+     
         self.current_combobox = ttk.Combobox(root, values=[os.path.splitext(os.path.basename(song))[0] for song in self.songs])
         if self.songs:
-            self.current_combobox.current(0)  # Select the first song if available
+            self.current_combobox.current(0)
         self.current_combobox.place(relx=0.42, rely=0.6, anchor="e")
 
         self.play_button = Button(root, text="Play", command=self.play, bg="#FFB3C1", borderwidth=0)
@@ -105,27 +105,26 @@ class TimerWindow:
             relief="flat",
             bg="#FFB3C1"
         )
-        button.bind("<Enter>", lambda e: button.config(bg="#FF9AAB"))  # Change color on hover
-        button.bind("<Leave>", lambda e: button.config(bg="#FFB3C1"))  # Revert color on leave
+        button.bind("<Enter>", lambda e: button.config(bg="#FF9AAB"))  
+        button.bind("<Leave>", lambda e: button.config(bg="#FFB3C1"))  
 
     def load_songs(self):
         """Load song paths from a text file."""
         try:
-            with open("songs.txt", "r", encoding="utf-8") as file:  # Specify UTF-8 encoding
-                songs = file.read().splitlines()  # Read lines into a list
+            with open("songs.txt", "r", encoding="utf-8") as file: 
+                songs = file.read().splitlines()  
                 return songs
         except FileNotFoundError:
-            return []  # Return an empty list if the file does not exist
+            return [] 
 
     def save_song(self, song_path):
         """Append a new song path to the text file."""
-        with open("songs.txt", "a", encoding="utf-8") as file:  # Specify UTF-8 encoding
-            file.write(song_path + "\n")  # Write the song path to the file
-
+        with open("songs.txt", "a", encoding="utf-8") as file:
+            file.write(song_path + "\n")
     def play(self):
         selected_index = self.current_combobox.current()
         if selected_index >= 0:
-            self.current_song = self.songs[selected_index]  # Get the full path for the selected song
+            self.current_song = self.songs[selected_index]
         
             if self.current_song:
                 print(f"Loading song: {self.current_song}")
